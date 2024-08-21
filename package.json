@@ -1,0 +1,10 @@
+{
+  "name": "bitrise-step-mark-release-candidate",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Technology Studio",
+  "type": "module",
+  "dependencies": {
+    "ky": "^1.6.0"
+  }
+}
