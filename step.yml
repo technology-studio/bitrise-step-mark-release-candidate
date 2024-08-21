@@ -8,11 +8,11 @@
 # - Bitrise CLI guides: http://devcenter.bitrise.io/bitrise-cli/
 
 title: |-
-  Update trunk commit status
+  Mark release candidate
 summary: |
-  Adds a status to a commit
+  Adds a versioned tag to a commit and updates delivered branch
 description: |
-  Adds a current build status to a commit with a specific context
+  Adds a versioned tag to a commit and updates delivered branch
 website: https://github.com/technology-studio/bitrise-step-mark-release-candidate
 source_code_url: https://github.com/technology-studio/bitrise-step-mark-release-candidate
 support_url: https://github.com/technology-studio/bitrise-step-mark-release-candidate/issues
