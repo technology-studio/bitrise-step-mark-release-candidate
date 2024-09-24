@@ -12,6 +12,7 @@ const REPO = process.env.REPO_SLUG;
 const OWNER = process.env.REPO_OWNER;
 const BUILD_NUMBER = process.env.BITRISE_BUILD_NUMBER;
 const PLATFORM = process.env.APP_PLATFORM;
+const DEPLOYMENT = process.env.DEPLOYMENT;
 
 const api = ky.create({
   prefixUrl: 'https://api.github.com',
@@ -33,7 +34,7 @@ const api = ky.create({
     console.log("No app version found, skipping");
     return;
   }
-  const releaseCandidateTagName = `release-candidate/${PLATFORM}/${appVersion}-${BUILD_NUMBER}`;
+  const releaseCandidateTagName = `${PLATFORM}/${DEPLOYMENT}/${appVersion}-${BUILD_NUMBER}`;
   console.log(`Adding "${releaseCandidateTagName}" tag to ${COMMIT_SHA}...`);
   try {
     const tagResponse = await api.post(`repos/${OWNER}/${REPO}/git/tags`, {
@@ -56,7 +57,7 @@ const api = ky.create({
     process.exit(1);
   }
 
-  const deliveredReleaseCandidateBranchName = `release-candidate/${PLATFORM}/delivered`;
+  const deliveredReleaseCandidateBranchName = `${PLATFORM}/release-candidate`;
   console.log(`Setting "${deliveredReleaseCandidateBranchName}" branch to ${COMMIT_SHA}...`);
   try {
     const branchExists = execSync(`git show-ref refs/heads/${deliveredReleaseCandidateBranchName}`).toString().trim() !== "";
@@ -69,7 +70,7 @@ const api = ky.create({
     }
     execSync(`git push origin ${deliveredReleaseCandidateBranchName}`);
   } catch (error) {
-    console.error("Failed to update delivered release-candidate branch");
+    console.error("Failed to update release-candidate branch");
     process.exit(1);
   }
 })();
